@@ -32,8 +32,13 @@
   --hot:#B3261E; --warn:#9A6100; --calm:#5A6167; --gold:#C9A227;
 }
 *{box-sizing:border-box}
-body{margin:0;background:var(--paper);color:var(--ink);-webkit-font-smoothing:antialiased;
+[hidden]{display:none!important}
+body{margin:0;color:var(--ink);-webkit-font-smoothing:antialiased;
   border-top:3px solid var(--acc);
+  background:var(--paper);
+  background-image:radial-gradient(circle at 12% 8%, #175E4C0A 0, transparent 42%),
+                   radial-gradient(circle at 88% 4%, #C9A2270D 0, transparent 38%);
+  background-attachment:fixed;
   font:14px/1.5 -apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Pretendard","Malgun Gothic",sans-serif}
 .mono,.n,.dday,.amt,.kpi b{font-family:ui-monospace,SFMono-Regular,"SF Mono",Menlo,monospace;
   font-variant-numeric:tabular-nums}
@@ -46,21 +51,28 @@ header .lede{margin-top:5px;color:var(--mut);font-size:12.5px}
 header .pub{margin-top:6px;font-size:12.5px;color:var(--mid)}
 header .pub b{color:var(--acc);font-weight:700}
 
-.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(132px,1fr));gap:1px;
-  background:var(--line);border:1px solid var(--line);border-radius:8px;overflow:hidden}
-.kpi{background:var(--card);padding:14px 16px}
-.kpi b{display:block;font-size:21px;font-weight:600;letter-spacing:-.02em}
-.kpi span{display:block;margin-top:2px;color:var(--mut);font-size:10.5px;letter-spacing:.09em}
-.kpi.hot b{color:var(--hot)} .kpi.acc b{color:var(--acc)} .kpi.new b{color:var(--gold)}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(158px,1fr));gap:10px}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:15px 16px;
+  display:flex;align-items:center;gap:12px;box-shadow:0 1px 3px rgba(20,30,25,.05)}
+.kpi .ki{width:38px;height:38px;border-radius:11px;flex:none;display:flex;align-items:center;
+  justify-content:center;font-size:18px;background:var(--sunk)}
+.kpi b{display:block;font-size:22px;font-weight:700;letter-spacing:-.03em;line-height:1.1}
+.kpi span{display:block;margin-top:2px;color:var(--mut);font-size:11px}
+.kpi.acc .ki{background:#175E4C14} .kpi.acc b{color:var(--acc)}
+.kpi.new .ki{background:#2563EB14} .kpi.new b{color:#2563EB}
+.kpi.hot .ki{background:#B3261E14} .kpi.hot b{color:var(--hot)}
+.kpi.cal .ki{background:#0E749014} .kpi.cal b{color:#0E7490}
+.kpi.gold .ki{background:#C9A22720} .kpi.gold b{color:#8A6A12}
 
 h2{margin:0 0 9px;font-size:11px;font-weight:600;letter-spacing:.11em;color:var(--mut)}
-.card{background:var(--card);border:1px solid var(--line);border-radius:8px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;
+  box-shadow:0 1px 3px rgba(20,30,25,.05)}
 .scroll{overflow-x:auto}
 
 table{border-collapse:collapse;width:100%;font-size:13px}
-th{text-align:left;font-weight:600;font-size:11px;letter-spacing:.07em;color:var(--mut);
-  padding:9px 12px;border-bottom:1px solid var(--line);white-space:nowrap;background:var(--card)}
-td{padding:9px 12px;border-bottom:1px solid var(--line2);vertical-align:top}
+th{text-align:left;font-weight:700;font-size:11px;letter-spacing:.05em;color:var(--mid);
+  padding:11px 12px;border-bottom:1.5px solid var(--line);white-space:nowrap;background:var(--sunk)}
+td{padding:11px 12px;border-bottom:1px solid var(--line2);vertical-align:top}
 tbody tr:last-child td{border-bottom:0}
 .n{text-align:right;white-space:nowrap} .mut{color:var(--mut)}
 .bar{position:relative;display:inline-block;padding:1px 5px;border-radius:3px;overflow:hidden;color:var(--mid)}
@@ -68,8 +80,10 @@ tbody tr:last-child td{border-bottom:0}
   border-right:1px solid var(--acc-b)}
 
 .tools{background:var(--card);border:1px solid var(--line);
-  border-radius:8px;padding:12px 14px;display:flex;flex-direction:column;gap:9px}
-.tools.mine{border-color:var(--acc-b);border-width:1.5px}
+  border-radius:12px;padding:15px 17px;display:flex;flex-direction:column;gap:11px;
+  box-shadow:0 1px 3px rgba(20,30,25,.05)}
+.tools.mine{border-color:var(--acc-b);border-width:1.5px;
+  background:linear-gradient(180deg,#175E4C07 0,transparent 90px),var(--card)}
 .mine-t{font-size:14px;font-weight:700;letter-spacing:-.01em}
 .mine-t::before{content:"";display:inline-block;width:7px;height:7px;background:var(--gold);
   margin-right:7px;vertical-align:1px}
@@ -85,21 +99,27 @@ button.go{align-self:flex-start;margin-top:2px;background:var(--acc);color:#fff;
 button.go:hover{color:#fff;opacity:.9;border-color:var(--acc)}
 button.sub{font-weight:700;font-size:13px;padding:8px 16px;border-radius:6px;
   color:var(--acc);border-color:var(--acc-b);background:var(--acc-s)}
-.srch{display:flex;gap:8px;align-items:center}
+.srch{display:flex;gap:8px;align-items:center;position:relative}
+.srch .si{position:absolute;left:13px;font-size:14px;opacity:.5;pointer-events:none}
 .srch input{flex:1;font:inherit;font-size:13.5px;color:var(--ink);background:var(--sunk);
-  border:1px solid transparent;border-radius:6px;padding:8px 11px}
+  border:1px solid transparent;border-radius:9px;padding:10px 12px 10px 36px}
 .srch input::placeholder{color:var(--mut)}
 .srch input:focus{outline:none;border-color:var(--acc);background:var(--card)}
 .chips{display:flex;flex-wrap:wrap;gap:5px;align-items:baseline}
-.chips .lab{width:52px;flex:none;font-size:10.5px;letter-spacing:.08em;color:var(--mut)}
-#age{width:88px;font:inherit;font-size:12px;color:var(--ink);background:var(--sunk);
-  border:1px solid transparent;border-radius:5px;padding:4px 9px}
-#age::placeholder{color:var(--mut)}
-#age:focus{outline:none;border-color:var(--acc);background:var(--card)}
-button.chip,button.act{font:inherit;font-size:12px;padding:4px 10px;border-radius:5px;cursor:pointer;
-  background:transparent;color:var(--mid);border:1px solid var(--line);white-space:nowrap}
+.chips .lab{width:52px;flex:none;font-size:11px;letter-spacing:.03em;color:var(--mid);font-weight:650}
+input[type=range]{-webkit-appearance:none;appearance:none;width:190px;height:5px;border-radius:3px;
+  background:linear-gradient(90deg,var(--acc) 0,var(--acc) var(--p,0%),var(--line) var(--p,0%));
+  outline:none;cursor:pointer;vertical-align:middle}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:17px;height:17px;border-radius:50%;
+  background:#fff;border:2.5px solid var(--acc);cursor:pointer;box-shadow:0 1px 3px rgba(0,0,0,.18)}
+.rv{font-size:12px;font-weight:700;color:var(--acc);min-width:62px;display:inline-block}
+button.chip,button.act{font:inherit;font-size:12.5px;padding:6px 11px;border-radius:8px;cursor:pointer;
+  background:var(--card);color:var(--mid);border:1px solid var(--line);white-space:nowrap;
+  transition:background .12s,border-color .12s}
+button.chip i{font-style:normal;margin-right:5px;filter:saturate(.9)}
 button.chip:hover,button.act:hover{color:var(--ink);border-color:var(--mut)}
-button.chip[aria-pressed="true"]{background:var(--acc-s);color:var(--acc);border-color:var(--acc-b);font-weight:600}
+button.chip[aria-pressed="true"]{background:var(--acc-s);color:var(--acc);border-color:var(--acc);font-weight:650;
+  box-shadow:inset 0 0 0 1px var(--acc-b)}
 button.chip::before{content:"";display:inline-block;width:10px;height:10px;margin-right:5px;
   border:1.5px solid var(--line);border-radius:3px;vertical-align:-1px}
 button.chip[aria-pressed="true"]::before{content:"✓";border-color:var(--acc);background:var(--acc);
@@ -135,6 +155,14 @@ button.grp{display:block;margin-top:4px;font:inherit;font-size:11px;color:var(--
   background:var(--acc-s);border:1px solid var(--acc-b);border-radius:4px;padding:2px 8px;cursor:pointer}
 button.grp:hover{opacity:.85}
 td.g,td.src{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sb{display:inline-block;font-size:11px;font-weight:650;padding:2px 7px;border-radius:5px;
+  background:var(--sunk);color:var(--mid);border:1px solid var(--line)}
+.sb[data-s="기업마당"]{background:#175E4C12;color:var(--acc);border-color:var(--acc-b)}
+.sb[data-s="K-Startup"]{background:#2563EB12;color:#2563EB;border-color:#2563EB33}
+.sb[data-s="보조금24"]{background:#0E749012;color:#0E7490;border-color:#0E749033}
+.sb[data-s="소상공인24"]{background:#C9A22718;color:#8A6A12;border-color:#C9A22740}
+.sb[data-s="KOTRA"]{background:#7C3AED12;color:#7C3AED;border-color:#7C3AED33}
+.sb[data-s="고용24"]{background:#B9770012;color:#B97700;border-color:#B9770033}
 .tags{display:flex;flex-wrap:wrap;gap:3px}
 .tag{display:inline-block;padding:1px 6px;border:1px solid var(--line);border-radius:4px;
   font-size:11.5px;color:var(--mid);white-space:nowrap;max-width:100%;overflow:hidden;text-overflow:ellipsis}
@@ -142,8 +170,10 @@ td.g,td.src{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .tag.plus{border-style:dashed;color:var(--mut)}
 .amt{font-weight:600} .amt.vrf{color:var(--acc)} .amt.non{color:var(--mut);font-weight:400}
 .empty{padding:48px;text-align:center;color:var(--mut)}
-.welcome{padding:44px 24px;text-align:center;display:flex;flex-direction:column;gap:10px;align-items:center}
-.w-t{font-size:16px;font-weight:700}
+.welcome{padding:44px 24px 40px;text-align:center;display:flex;flex-direction:column;gap:10px;align-items:center;
+  background:linear-gradient(180deg,#175E4C06 0,transparent 60%),var(--card)}
+.w-ill{width:210px;height:128px;margin-bottom:2px}
+.w-t{font-size:17px;font-weight:750;letter-spacing:-.02em}
 .w-d{font-size:12.5px;color:var(--mut);line-height:1.7}
 .hidebtn{float:right;font:inherit;font-size:10px;color:var(--mut);background:none;border:1px solid var(--line);
   border-radius:4px;padding:1px 6px;cursor:pointer;margin-left:6px}
@@ -199,11 +229,11 @@ footer b{color:var(--mid);font-weight:600}
  </header>
 
  <div class="kpis">
-  <div class="kpi acc"><b>3,522</b><span>접수 가능</span></div>
-  <div class="kpi new"><b>507</b><span>이번 주 신규</span></div>
-  <div class="kpi hot"><b>319</b><span>D-7 이내</span></div>
-  <div class="kpi"><b>2,366</b><span>상시 접수</span></div>
-  <div class="kpi"><b>858</b><span>지원금액 확인</span></div>
+  <div class="kpi acc"><span class="ki">✅</span><div><b>3,522</b><span>접수 가능</span></div></div>
+  <div class="kpi new"><span class="ki">🆕</span><div><b>507</b><span>이번 주 신규</span></div></div>
+  <div class="kpi hot"><span class="ki">⏱️</span><div><b>319</b><span>D-7 이내</span></div></div>
+  <div class="kpi cal"><span class="ki">🔁</span><div><b>2,366</b><span>상시 접수</span></div></div>
+  <div class="kpi gold"><span class="ki">💰</span><div><b>858</b><span>지원금액 확인</span></div></div>
  </div>
 
  <section style="display:flex;flex-direction:column;gap:12px">
@@ -211,11 +241,11 @@ footer b{color:var(--mid);font-weight:600}
    <div class="mine-t">우리 회사 조건으로 찾기</div>
    <div class="mine-d">해당하는 항목을 누르면 조건에 맞지 않는 공고가 자동으로 제외됩니다. 여러 개를 골라도 됩니다.</div>
    <div class="chips"><span class="lab">규모</span>
-    <button class="chip" data-k="z" data-v="소상공인" aria-pressed="false">소상공인</button>
-    <button class="chip" data-k="z" data-v="중소기업" aria-pressed="false">중소기업</button>
-    <button class="chip" data-k="z" data-v="중견기업" aria-pressed="false">중견기업</button>
-    <button class="chip" data-k="z" data-v="스타트업" aria-pressed="false">스타트업·창업기업</button>
-    <button class="chip" data-k="z" data-v="예비창업자" aria-pressed="false">예비창업자</button>
+    <button class="chip" data-k="z" data-v="소상공인" aria-pressed="false"><i>🏪</i>소상공인</button>
+    <button class="chip" data-k="z" data-v="중소기업" aria-pressed="false"><i>🏢</i>중소기업</button>
+    <button class="chip" data-k="z" data-v="중견기업" aria-pressed="false"><i>🏛️</i>중견기업</button>
+    <button class="chip" data-k="z" data-v="스타트업" aria-pressed="false"><i>🚀</i>스타트업·창업기업</button>
+    <button class="chip" data-k="z" data-v="예비창업자" aria-pressed="false"><i>💡</i>예비창업자</button>
     <button class="info" id="critbtn" title="규모 구분 기준 보기">기준 안내 ⓘ</button>
    </div>
    <div class="crit" id="crit" hidden>
@@ -230,19 +260,20 @@ footer b{color:var(--mid);font-weight:600}
     경계선에 있으면 판정이 필요합니다 — 카카오 채널로 문의 주시면 확인해 드립니다.
    </div>
    <div class="chips"><span class="lab">사업자</span>
-    <button class="chip" data-k="b" data-v="개인" aria-pressed="false">개인사업자</button>
-    <button class="chip" data-k="b" data-v="법인" aria-pressed="false">법인</button>
+    <button class="chip" data-k="b" data-v="개인" aria-pressed="false"><i>👤</i>개인사업자</button>
+    <button class="chip" data-k="b" data-v="법인" aria-pressed="false"><i>🏢</i>법인</button>
     <span class="hint">공고가 형태를 명시한 경우에만 걸러집니다</span>
    </div>
    <div class="chips"><span class="lab">업종</span>
-    <button class="chip" data-k="i" data-v="제조" aria-pressed="false">제조</button><button class="chip" data-k="i" data-v="IT·정보통신" aria-pressed="false">IT·정보통신</button><button class="chip" data-k="i" data-v="콘텐츠·문화" aria-pressed="false">콘텐츠·문화</button><button class="chip" data-k="i" data-v="바이오·의료" aria-pressed="false">바이오·의료</button><button class="chip" data-k="i" data-v="관광·외식·서비스" aria-pressed="false">관광·외식·서비스</button><button class="chip" data-k="i" data-v="농림수산" aria-pressed="false">농림수산</button><button class="chip" data-k="i" data-v="환경·에너지" aria-pressed="false">환경·에너지</button><button class="chip" data-k="i" data-v="건설" aria-pressed="false">건설</button><button class="chip" data-k="i" data-v="유통·소비재" aria-pressed="false">유통·소비재</button><button class="chip" data-k="i" data-v="수출·무역" aria-pressed="false">수출·무역</button>
+    <button class="chip" data-k="i" data-v="제조" aria-pressed="false"><i>🏭</i>제조</button><button class="chip" data-k="i" data-v="IT·정보통신" aria-pressed="false"><i>💻</i>IT·정보통신</button><button class="chip" data-k="i" data-v="콘텐츠·문화" aria-pressed="false"><i>🎬</i>콘텐츠·문화</button><button class="chip" data-k="i" data-v="바이오·의료" aria-pressed="false"><i>🧬</i>바이오·의료</button><button class="chip" data-k="i" data-v="관광·외식·서비스" aria-pressed="false"><i>🍽️</i>관광·외식·서비스</button><button class="chip" data-k="i" data-v="농림수산" aria-pressed="false"><i>🌾</i>농림수산</button><button class="chip" data-k="i" data-v="환경·에너지" aria-pressed="false"><i>♻️</i>환경·에너지</button><button class="chip" data-k="i" data-v="건설" aria-pressed="false"><i>🏗️</i>건설</button><button class="chip" data-k="i" data-v="유통·소비재" aria-pressed="false"><i>📦</i>유통·소비재</button><button class="chip" data-k="i" data-v="수출·무역" aria-pressed="false"><i>🚢</i>수출·무역</button>
    </div>
    <div class="chips"><span class="lab">지역</span>
     <button class="chip" data-k="g" data-v="서울" aria-pressed="false">서울</button><button class="chip" data-k="g" data-v="경기" aria-pressed="false">경기</button><button class="chip" data-k="g" data-v="인천" aria-pressed="false">인천</button><button class="chip" data-k="g" data-v="부산" aria-pressed="false">부산</button><button class="chip" data-k="g" data-v="대구" aria-pressed="false">대구</button><button class="chip" data-k="g" data-v="광주" aria-pressed="false">광주</button><button class="chip" data-k="g" data-v="대전" aria-pressed="false">대전</button><button class="chip" data-k="g" data-v="울산" aria-pressed="false">울산</button><button class="chip" data-k="g" data-v="세종" aria-pressed="false">세종</button><button class="chip" data-k="g" data-v="강원" aria-pressed="false">강원</button><button class="chip" data-k="g" data-v="충북" aria-pressed="false">충북</button><button class="chip" data-k="g" data-v="충남" aria-pressed="false">충남</button><button class="chip" data-k="g" data-v="전북" aria-pressed="false">전북</button><button class="chip" data-k="g" data-v="전남" aria-pressed="false">전남</button><button class="chip" data-k="g" data-v="경북" aria-pressed="false">경북</button><button class="chip" data-k="g" data-v="경남" aria-pressed="false">경남</button><button class="chip" data-k="g" data-v="제주" aria-pressed="false">제주</button>
    </div>
    <div class="chips"><span class="lab">업력</span>
-    <input id="age" type="number" min="0" max="60" placeholder="사업 연차 (예: 3)" title="사업 연차를 넣으면 업력 조건에 맞지 않는 공고가 제외됩니다">
-    <span class="hint">창업 후 몇 년째인지 숫자만 — 업력 제한이 있는 공고를 걸러줍니다</span>
+    <input id="age" type="range" min="0" max="30" step="1" value="0">
+    <span class="rv" id="agev">제한 없음</span>
+    <span class="hint">창업 후 몇 년째인지 — 업력 조건에 맞지 않는 공고를 걸러줍니다</span>
    </div>
    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:2px">
     <button class="act go" id="go">조건에 맞는 공고 보기</button>
@@ -253,32 +284,47 @@ footer b{color:var(--mid);font-weight:600}
 
   <div class="tools">
    <div class="srch">
+    <span class="si">🔍</span>
     <input id="q" type="search" placeholder="키워드 검색 (예: 특례보증, 수출바우처, 고용)" autocomplete="off">
     <button class="act go" id="search">검색</button>
     <button class="act" id="reset">전체 초기화</button>
    </div>
    <div class="chips"><span class="lab">마감</span>
-    <button class="chip new" data-k="d" data-v="new" aria-pressed="false">이번 주 신규</button>
-    <button class="chip" data-k="d" data-v="d7" aria-pressed="false">D-7 이내</button>
-    <button class="chip" data-k="d" data-v="d30" aria-pressed="false">D-30 이내</button>
-    <button class="chip" data-k="d" data-v="always" aria-pressed="false">상시 접수</button>
-    <button class="chip" data-k="d" data-v="amt" aria-pressed="false">금액 확인된 건만</button>
+    <button class="chip new" data-k="d" data-v="new" aria-pressed="false"><i>🆕</i>이번 주 신규</button>
+    <button class="chip" data-k="d" data-v="d7" aria-pressed="false"><i>⏰</i>D-7 이내</button>
+    <button class="chip" data-k="d" data-v="d30" aria-pressed="false"><i>📅</i>D-30 이내</button>
+    <button class="chip" data-k="d" data-v="always" aria-pressed="false"><i>🔁</i>상시 접수</button>
+    <button class="chip" data-k="d" data-v="amt" aria-pressed="false"><i>💰</i>금액 확인된 건만</button>
    </div>
    <div class="chips"><span class="lab">지원형태</span>
-    <button class="chip" data-k="f" data-v="보조금" aria-pressed="false">보조금</button><button class="chip" data-k="f" data-v="컨설팅·교육" aria-pressed="false">컨설팅·교육</button><button class="chip" data-k="f" data-v="수출·판로" aria-pressed="false">수출·판로</button><button class="chip" data-k="f" data-v="기타" aria-pressed="false">기타</button><button class="chip" data-k="f" data-v="시설·공간" aria-pressed="false">시설·공간</button><button class="chip" data-k="f" data-v="융자" aria-pressed="false">융자</button><button class="chip" data-k="f" data-v="보증" aria-pressed="false">보증</button><button class="chip" data-k="f" data-v="행사·네트워크" aria-pressed="false">행사·네트워크</button><button class="chip" data-k="f" data-v="R&amp;D" aria-pressed="false">R&amp;D</button><button class="chip" data-k="f" data-v="세제" aria-pressed="false">세제</button><button class="chip" data-k="f" data-v="바우처" aria-pressed="false">바우처</button>
+    <button class="chip" data-k="f" data-v="보조금" aria-pressed="false"><i>🎁</i>보조금</button><button class="chip" data-k="f" data-v="컨설팅·교육" aria-pressed="false"><i>🎓</i>컨설팅·교육</button><button class="chip" data-k="f" data-v="수출·판로" aria-pressed="false"><i>🚢</i>수출·판로</button><button class="chip" data-k="f" data-v="기타" aria-pressed="false"><i>📌</i>기타</button><button class="chip" data-k="f" data-v="시설·공간" aria-pressed="false"><i>🏢</i>시설·공간</button><button class="chip" data-k="f" data-v="융자" aria-pressed="false"><i>🏦</i>융자</button><button class="chip" data-k="f" data-v="보증" aria-pressed="false"><i>🛡️</i>보증</button><button class="chip" data-k="f" data-v="행사·네트워크" aria-pressed="false"><i>🤝</i>행사·네트워크</button><button class="chip" data-k="f" data-v="R&amp;D" aria-pressed="false"><i>🔬</i>R&amp;D</button><button class="chip" data-k="f" data-v="세제" aria-pressed="false"><i>🧾</i>세제</button><button class="chip" data-k="f" data-v="바우처" aria-pressed="false"><i>🎟️</i>바우처</button>
    </div>
    <div class="chips"><span class="lab">금액</span>
     <button class="chip" data-k="m" data-v="s" aria-pressed="false">1천만원 미만</button>
     <button class="chip" data-k="m" data-v="m" aria-pressed="false">1천만~1억</button>
     <button class="chip" data-k="m" data-v="l" aria-pressed="false">1억~10억</button>
     <button class="chip" data-k="m" data-v="x" aria-pressed="false">10억 이상</button>
+    <input id="minamt" type="range" min="0" max="10" step="1" value="0">
+    <span class="rv" id="minamtv">하한 없음</span>
    </div>
   </div>
 
   <div class="card welcome" id="welcome" hidden>
-   <div class="w-t">먼저 위에서 우리 회사 조건을 선택해 주세요</div>
-   <div class="w-d">규모·업종·지역·업력을 고르면 3천여 건 중 해당하는 공고만 이 자리에 나타납니다.<br>
-   조건은 이 브라우저에 저장되어 다음 방문 때 그대로 유지됩니다.</div>
+   <svg class="w-ill" viewBox="0 0 210 128" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <ellipse cx="105" cy="112" rx="74" ry="9" fill="var(--acc)" opacity=".07"/>
+    <rect x="34" y="30" width="84" height="62" rx="8" fill="var(--card)" stroke="var(--line)" stroke-width="2"/>
+    <rect x="45" y="70" width="12" height="13" rx="2.5" fill="var(--acc)" opacity=".35"/>
+    <rect x="63" y="58" width="12" height="25" rx="2.5" fill="var(--acc)" opacity=".6"/>
+    <rect x="81" y="46" width="12" height="37" rx="2.5" fill="var(--acc)"/>
+    <rect x="99" y="63" width="12" height="20" rx="2.5" fill="var(--gold)" opacity=".75"/>
+    <rect x="45" y="41" width="34" height="5" rx="2.5" fill="var(--line)"/>
+    <circle cx="140" cy="52" r="24" fill="var(--card)" stroke="var(--acc)" stroke-width="3.5" opacity=".9"/>
+    <path d="M157 70l14 14" stroke="var(--acc)" stroke-width="6" stroke-linecap="round"/>
+    <path d="M131 52l6 6 12-13" stroke="var(--acc)" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+   </svg>
+   <div class="w-t">우리 회사에 꼭 맞는 지원사업을 찾아보세요</div>
+   <div class="w-d">위에서 규모·업종·지역·업력을 고르면 3천여 건 중 해당하는 공고만 여기에 나타납니다.<br>
+   고른 조건은 이 브라우저에 저장되어 다음 방문 때도 그대로 유지됩니다.</div>
    <button class="act" id="browseall">조건 없이 전체 목록 훑어보기</button>
   </div>
 
@@ -329,6 +375,11 @@ const ALIAS = {
   '예비창업자': ['예비창업','예비 창업'],
 };
 let myAge = null;
+// 금액 하한 슬라이더 눈금 — 로그 느낌으로 실무에서 쓰는 구간만
+const AMT_STEPS = [0, 3e6, 5e6, 1e7, 3e7, 5e7, 1e8, 3e8, 5e8, 1e9, 5e9];
+const amtLabel = v => v === 0 ? '하한 없음'
+  : v >= 1e8 ? (v/1e8) + '억 이상' : (v/1e4).toLocaleString() + '만 이상';
+let minAmt = 0;
 const listEl = document.getElementById('list');
 const countEl = document.getElementById('count');
 const moreEl = document.getElementById('more');
@@ -365,6 +416,7 @@ function match(r) {
     if (r.ym != null && myAge < r.ym) return false;
     if (r.y  != null && myAge > r.y)  return false;
   }
+  if (minAmt > 0 && !(r.a && r.a >= minAmt)) return false;
   if (F.m.size) {
     if (!r.a) return false;
     const band = r.a < 1e7 ? 's' : r.a < 1e8 ? 'm' : r.a < 1e9 ? 'l' : 'x';
@@ -425,7 +477,7 @@ function tr(r) {
      <td class="n">${r.y ? r.y + '년↓' : '<span class="mut">—</span>'}</td>
      <td>${r.z ? `<span class="tag">${esc(r.z)}</span>` : '<span class="mut">—</span>'}</td>
      <td class="g">${r.g ? esc(r.g) : '<span class="mut">전국</span>'}</td>
-     <td class="src mut">${esc(r.s)}
+     <td class="src"><span class="sb" data-s="${esc(r.s)}">${esc(r.s)}</span>
        <button class="hidebtn" data-h="${esc(r.k)}" title="${showHidden ? '다시 보이기' : '이 공고를 목록에서 숨깁니다'}">${showHidden ? '복원' : '숨김'}</button></td>`;
   return el;
 }
@@ -540,24 +592,38 @@ qEl.addEventListener('input', () => {
 });
 
 const ageEl = document.getElementById('age');
+const ageV = document.getElementById('agev');
+function paintRange(el) {
+  const p = (el.value - el.min) / (el.max - el.min) * 100;
+  el.style.setProperty('--p', p + '%');
+}
 ageEl.addEventListener('input', () => {
-  const v = ageEl.value.trim();
-  myAge = v === '' ? null : Math.max(0, parseInt(v, 10) || 0);
-  saveState(); render(true);
+  const v = parseInt(ageEl.value, 10);
+  myAge = v === 0 ? null : v;
+  ageV.textContent = v === 0 ? '제한 없음' : v + '년차';
+  paintRange(ageEl); saveState(); render(true);
+});
+const amtEl = document.getElementById('minamt');
+const amtV = document.getElementById('minamtv');
+amtEl.addEventListener('input', () => {
+  minAmt = AMT_STEPS[parseInt(amtEl.value, 10)] || 0;
+  amtV.textContent = amtLabel(minAmt);
+  paintRange(amtEl); saveState(); render(true);
 });
 
 document.getElementById('reset').addEventListener('click', () => {
   Object.values(F).forEach(s => s.clear());
   document.querySelectorAll('button.chip[data-k]').forEach(b => b.setAttribute('aria-pressed', 'false'));
   qEl.value = ''; q = '';
-  ageEl.value = ''; myAge = null;
+  ageEl.value = 0; myAge = null; ageV.textContent = '제한 없음'; paintRange(ageEl);
+  amtEl.value = 0; minAmt = 0; amtV.textContent = '하한 없음'; paintRange(amtEl);
   saveState(); render(true);
 });
 
 // ── 조건 저장·복원: URL 해시(공유용) + localStorage(재방문용) ──
 function stateObj() {
   return {z:[...F.z], i:[...F.i], g:[...F.g], f:[...F.f], d:[...F.d], m:[...F.m], b:[...F.b],
-          age: myAge, q: q};
+          age: myAge, amt: minAmt, q: q};
 }
 function saveState() {
   const o = stateObj();
@@ -574,7 +640,13 @@ function loadState() {
   document.querySelectorAll('button.chip[data-k]').forEach(b => {
     if (F[b.dataset.k].has(b.dataset.v)) b.setAttribute('aria-pressed', 'true');
   });
-  if (o.age !== null && o.age !== undefined) { myAge = o.age; ageEl.value = o.age; }
+  if (o.age !== null && o.age !== undefined) {
+    myAge = o.age; ageEl.value = o.age; ageV.textContent = o.age + '년차'; paintRange(ageEl);
+  }
+  if (o.amt) {
+    minAmt = o.amt; amtEl.value = Math.max(0, AMT_STEPS.indexOf(o.amt));
+    amtV.textContent = amtLabel(o.amt); paintRange(amtEl);
+  }
   if (o.q) { q = o.q; qEl.value = o.q; }
 }
 
@@ -615,6 +687,7 @@ document.getElementById('browseall').addEventListener('click', () => { explore =
 document.getElementById('hiddenbtn').addEventListener('click', () => { showHidden = !showHidden; render(true); });
 document.getElementById('uncbtn').addEventListener('click', () => { showUnsure = !showUnsure; render(true); });
 loadState();
+paintRange(ageEl); paintRange(amtEl);
 render(true);
 </script>
 
